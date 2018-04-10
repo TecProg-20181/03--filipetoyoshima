@@ -49,6 +49,14 @@ def is_word_guessed(secret_word, letters_guessed):
 #     # 'abcdefghijklmnopqrstuvwxyz'
 #     return string.ascii_lowercase
 
+def available_letters(letters_guessed):
+    available = string.ascii_lowercase
+    for letter in available:
+        if letter in letters_guessed:
+            available = available.replace(letter, '')
+    return available
+
+
 def already_guessed(secret_word, letters_guessed):
     """
     Return the letters already guessed from
@@ -76,12 +84,7 @@ def hangman(secret_word):
 
     while is_word_guessed(secret_word, letters_guessed) is False and guesses > 0:
         print 'You have ', guesses, 'guesses left.'
-
-        available = string.ascii_lowercase
-        for letter in available:
-            if letter in letters_guessed:
-                available = available.replace(letter, '')
-        print 'Available letters', available
+        print 'Available letters', available_letters(letters_guessed)
 
         letter = raw_input('Please guess a letter: ')
 
