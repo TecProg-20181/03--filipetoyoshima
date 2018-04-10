@@ -9,6 +9,8 @@ NUMBER_OF_GUESSES = 8
 
 def load_words():
     """
+    Load all the words in WORDLIST_FILENAME
+
     Depending on the size of the word list, this function may
     take a while to finish.
     """
@@ -24,7 +26,10 @@ def load_words():
 
 
 def is_word_guessed(secret_word, letters_guessed):
-
+    """
+    Return boolean acusing if the
+    secret word was already completly guessed
+    """
 #    secretLetters = []
 #    for letter in secret_word:
 #        if letter in secretLetters:
@@ -50,6 +55,10 @@ def is_word_guessed(secret_word, letters_guessed):
 #     return string.ascii_lowercase
 
 def available_letters(letters_guessed):
+    """
+    Return a string with the letters wich user can
+    yet choose.
+    """
     available = string.ascii_lowercase
     for letter in available:
         if letter in letters_guessed:
