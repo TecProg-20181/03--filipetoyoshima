@@ -49,6 +49,20 @@ def is_word_guessed(secret_word, letters_guessed):
 #     # 'abcdefghijklmnopqrstuvwxyz'
 #     return string.ascii_lowercase
 
+def already_guessed(secret_word, letters_guessed):
+    """
+    Return the letters already guessed from
+    the secret word formated like
+    'abc_ e_ _ h'
+    """
+    guessed = ''
+    for letter in secret_word:
+        if letter in letters_guessed:
+            guessed += letter
+        else:
+            guessed += '_ '
+    return guessed
+
 
 def hangman(secret_word):
     """
@@ -83,13 +97,7 @@ def hangman(secret_word):
             letters_guessed.append(letter)
             print 'Oops! That letter is not in my word: '
 
-        guessed = ''
-        for letter in secret_word:
-            if letter in letters_guessed:
-                guessed += letter
-            else:
-                guessed += '_ '
-        print guessed
+        print already_guessed(secret_word, letters_guessed)
         print '------------'
 
 
@@ -97,8 +105,6 @@ def hangman(secret_word):
         print 'Congratulations, you won!'
     else:
         print 'Sorry, you ran out of guesses. The word was ', secret_word, '.'
-
-
 
 
 SECRET_WORD = load_words().lower()
