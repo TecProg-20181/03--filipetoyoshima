@@ -15,11 +15,8 @@ def load_words():
     take a while to finish.
     """
     print "Loading word list from file..."
-    # in_file: file
     in_file = open(WORDLIST_FILENAME, 'r', 0)
-    # line: string
     line = in_file.readline()
-    # wordlist: list of strings
     wordlist = string.split(line)
     print "  ", len(wordlist), "words loaded."
     return random.choice(wordlist)
@@ -30,29 +27,12 @@ def is_word_guessed(secret_word, letters_guessed):
     Return boolean acusing if the
     secret word was already completly guessed
     """
-#    secretLetters = []
-#    for letter in secret_word:
-#        if letter in secretLetters:
-#            secretLetters.append(letter)
-#        else:
-#            pass
-
     for letter in secret_word:
         if letter in letters_guessed:
             pass
         else:
             return False
-
     return True
-
-# def get_guessed_word():
-#     guessed = ''
-#     return guessed
-
-# def get_available_letters():
-#     # import string
-#     # 'abcdefghijklmnopqrstuvwxyz'
-#     return string.ascii_lowercase
 
 def available_letters(letters_guessed):
     """
