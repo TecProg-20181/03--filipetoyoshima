@@ -13,10 +13,20 @@ class HangmanGame(object):
 
     def __init__(self, file_name='', number_of_guesses=8):
 
+        self.number_of_guesses = number_of_guesses
         self.secret_word = ''
         self.load_words(file_name)
         self.letters_guessed = []
-        self.number_of_guesses = number_of_guesses
+
+
+    def check_different_letters(self):
+        """ Returns the number of different letters
+            of the given word
+        """
+        letters = set()
+        letters.update(self.secret_word)
+        print "The random choosen word has ", len(letters), "different letters"
+        return len(letters)
 
 
     def load_words(self, file_name):
@@ -31,6 +41,9 @@ class HangmanGame(object):
         wordlist = string.split(line)
         print "  ", len(wordlist), "words loaded."
         self.secret_word = random.choice(wordlist).lower()
+        while self.check_different_letters() > self.number_of_guesses:
+            self.secret_word = random.choice(wordlist).lower()
+            print "This one is too hard, another will be chosen"
 
 
     def is_word_guessed(self):
