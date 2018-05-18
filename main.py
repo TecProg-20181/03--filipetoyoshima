@@ -3,7 +3,7 @@
 
 from hangman import HangmanGame
 
-WORDLIST_FILENAME = "palavras.txt"
+WORDLIST_FILENAME = "test"
 NUMBER_OF_GUESSES = 8
 
 GAME = HangmanGame(file_name=WORDLIST_FILENAME, number_of_guesses=NUMBER_OF_GUESSES)

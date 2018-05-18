@@ -4,6 +4,7 @@
     word."""
 import string
 import random
+from customError import *
 
 class HangmanGame(object):
     """ Class containing variables and
@@ -36,9 +37,18 @@ class HangmanGame(object):
             take a while to finish.
         """
         print "Loading word list from file..."
-        in_file = open(file_name, 'r', 0)
-        line = in_file.readline()
-        wordlist = string.split(line)
+        try:
+            in_file = open(file_name, 'r', 0)
+            line = in_file.readline()
+            wordlist = string.split(line)
+            if len(wordlist) <= 0:
+                raise NoWordsError(file_name)
+        except IOError:
+            print """
+                    FILE NOT FOUND. See https://github.com/TecProg-20181/03--filipetoyoshima
+                    to find the files and put it on the same directory as hangman.py"""
+        except NoWordsError as e:
+            print e.message
         print "  ", len(wordlist), "words loaded."
         self.secret_word = random.choice(wordlist).lower()
         while self.check_different_letters() > self.number_of_guesses:
