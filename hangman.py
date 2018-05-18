@@ -45,10 +45,12 @@ class HangmanGame(object):
                 raise NoWordsError(file_name)
         except IOError:
             print """
-                    FILE NOT FOUND. See https://github.com/TecProg-20181/03--filipetoyoshima
-                    to find the files and put it on the same directory as hangman.py"""
+FILE NOT FOUND. See https://github.com/TecProg-20181/03--filipetoyoshima
+to find the files and put it on the same directory as hangman.py"""
+            exit()
         except NoWordsError as e:
             print e.message
+            exit()
         print "  ", len(wordlist), "words loaded."
         self.secret_word = random.choice(wordlist).lower()
         while self.check_different_letters() > self.number_of_guesses:
