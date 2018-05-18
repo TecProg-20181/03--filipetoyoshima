@@ -21,6 +21,7 @@ class HangmanGame(object):
         self.secret_word = ''
         self.load_words(file_name)
         self.letters_guessed = []
+        self.available_letters = string.ascii_lowercase
         
 
     def check_different_letters(self):
@@ -79,16 +80,12 @@ to find the files and put it on the same directory as hangman.py"""
         return True
 
 
-    def available_letters(self):
+    def update_available_letters(self, letter):
         """ Return a string with the letters wich user can
             yet choose.
         """
-        available = string.ascii_lowercase
-        for letter in available:
-            if letter in self.letters_guessed:
-                available = available.replace(letter, '')
-        logging.debug(available)
-        return available
+        self.available_letters = self.available_letters.replace(letter, '')
+        logging.debug(self.available_letters)
 
 
     def already_guessed(self):
@@ -115,7 +112,7 @@ to find the files and put it on the same directory as hangman.py"""
 
         while self.is_word_guessed() is False and self.number_of_guesses > 0:
             print 'You have ', self.number_of_guesses, 'guesses left.'
-            print 'Available letters', self.available_letters()
+            print 'Available letters', self.available_letters
 
             letter = raw_input('Please guess a letter: ')
 
@@ -130,14 +127,16 @@ to find the files and put it on the same directory as hangman.py"""
 
             elif letter in self.secret_word:
                 self.letters_guessed.append(letter)
+                self.update_available_letters(letter)
                 print 'Good Guess: '
 
-            elif letter not in self.available_letters():
+            elif letter not in self.available_letters:
                 print 'This is not a available guess\nTry again!'
 
             else:
                 self.number_of_guesses -= 1
                 self.letters_guessed.append(letter)
+                self.update_available_letters(letter)
                 print 'Oops! That letter is not in my word: '
 
             print self.already_guessed()
