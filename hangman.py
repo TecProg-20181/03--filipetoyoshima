@@ -106,12 +106,21 @@ class HangmanGame(object):
 
             letter = raw_input('Please guess a letter: ')
 
-            if letter in self.letters_guessed:
+            if len(letter) > 1:
+                print 'Please, guess ONLY ONE letter'
+
+            elif len(letter) < 1:
+                print 'This was a blank guess, please guess one letter.'
+
+            elif letter in self.letters_guessed:
                 print 'Oops! You have already guessed that letter: '
 
             elif letter in self.secret_word:
                 self.letters_guessed.append(letter)
                 print 'Good Guess: '
+
+            elif letter not in self.available_letters():
+                print 'This is not a available guess\nTry again!'
 
             else:
                 self.number_of_guesses -= 1
