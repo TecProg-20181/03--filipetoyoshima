@@ -4,7 +4,10 @@
     word."""
 import string
 import random
+import logging
 from customError import *
+
+logging.basicConfig(filename='hangman.log', level=logging.DEBUG)
 
 class HangmanGame(object):
     """ Class containing variables and
@@ -18,16 +21,19 @@ class HangmanGame(object):
         self.secret_word = ''
         self.load_words(file_name)
         self.letters_guessed = []
-
+        
 
     def check_different_letters(self):
         """ Returns the number of different letters
             of the given word
         """
-        letters = set()
-        letters.update(self.secret_word)
-        print "The random choosen word has ", len(letters), "different letters"
-        return len(letters)
+        letters = set(self.secret_word)
+        numberOfDiffLetters = len(letters)
+        print "The random choosen word has ", numberOfDiffLetters, "different letters"
+        logging.debug("word: {0}\nSet: {1}\n{2} letters".format(self.secret_word,
+                                                                letters,
+                                                                numberOfDiffLetters))
+        return numberOfDiffLetters
 
 
     def load_words(self, file_name):
@@ -66,7 +72,10 @@ to find the files and put it on the same directory as hangman.py"""
             if letter in self.letters_guessed:
                 pass
             else:
+                logging.debug('{0} not guessed'.format(letter))
                 return False
+        logging.debug('all letters guessed!')
+        logging.debug('{0} : {1}'.format(self.secret_word, self.letters_guessed))
         return True
 
 
@@ -78,6 +87,7 @@ to find the files and put it on the same directory as hangman.py"""
         for letter in available:
             if letter in self.letters_guessed:
                 available = available.replace(letter, '')
+        logging.debug(available)
         return available
 
 
@@ -92,6 +102,7 @@ to find the files and put it on the same directory as hangman.py"""
                 guessed += letter
             else:
                 guessed += '_ '
+        logging.debug('already guessed: {0}'.format(guessed))
         return guessed
 
 
